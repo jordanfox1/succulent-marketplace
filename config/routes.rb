@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get 'listings/index'
+  resources :listings
   devise_for :users
-  root to: "listings#index"
+  root to: 'listings#index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
