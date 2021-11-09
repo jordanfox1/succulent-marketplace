@@ -1,6 +1,6 @@
 class ListingsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  before_action :check_auth
+  before_action :check_auth, except: [:search]
   before_action :set_listing, only: %i[ show edit update destroy ]
   
 
@@ -59,6 +59,25 @@ class ListingsController < ApplicationController
     end
   end
 
+  def search
+    case params[:type]
+    when "name"
+      @listings = Listing.where("name LIKE ?", "%#{params[:query].capitalize}%")
+    when "category"
+      @listings = []
+      categories = Category.where("name LIKE ?", "%#{params[:query].capitalize}%")
+      # @listings = @categories.listings
+      p categories
+      categories.each do |cat|
+        cat.listings.each do |list|
+          @listings << list
+        end
+      end
+      p @listings
+    end
+    render 'index'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_listing
@@ -71,7 +90,7 @@ class ListingsController < ApplicationController
       params.require(:listing).permit(:name, :description, :price, :plant_picture)
     end
 
-    def check_auth  
+    def check_auth
       authorize Listing
     end
     

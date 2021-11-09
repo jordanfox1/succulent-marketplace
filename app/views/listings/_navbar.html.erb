@@ -1,0 +1,7 @@
+<%= form_with url: "/search", method: :get do |f|  %>
+    <%= f.label :search %>
+    <%= f.text_field :query %>
+    <%= f.label :search_by %>
+    <%= f.select :type, ["name", "category"] %>
+    <%= f.submit :Enter %>
+<%end%>
