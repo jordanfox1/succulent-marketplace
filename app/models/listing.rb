@@ -1,5 +1,5 @@
 class Listing < ApplicationRecord
-    
+    has_many :listing_categories, dependent: :destroy
     belongs_to :user
     has_many :categories, through: :listing_categories
 
