@@ -68,6 +68,8 @@ class ListingsController < ApplicationController
       categories = Category.where("name LIKE ?", "%#{params[:query].capitalize}%")
       # @listings = @categories.listings
       p categories
+      p categories 
+      p categories
       categories.each do |cat|
         cat.listings.each do |list|
           @listings << list
