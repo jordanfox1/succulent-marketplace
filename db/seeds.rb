@@ -17,6 +17,7 @@ categories = [
     # {name: "Aeonium", description: "Aeonium succulents are a genus of succulents in the Crassulaceae family. Aeonium succulents are native to the Canary Islands, but can also be found in Morocco and East Africa. Aeonium succulents are unique and colorful succulent plants. Aeonium succulents are treasured amongst many succulent enthusiasts for their leaves that are incredibly similar to foliage leaves."},
     # {name: "Cactus", description: "Cactus are versatile plants native to the Americas and love dry arid climates. Cactus are treasured plants among many collectors because of their unique shapes and their versatility to thrive in both outdoor and indoor spaces."},
     # {name: "Other", description: "The type of this plant is not specified or unknown"}
+    Category.create!(name: "Echeveria", description: "Echeveria is a large genus of flowering plants in the family Crassulaceae, native to semi-desert areas of Central America, Mexico and northwestern South America."),
     Category.create!(name: "Haworthia", description: "Haworthia plants are hardy and resilient, making Haworthias the perfect indoor succulents."),
     Category.create!(name: "Crassula", description: "Crassula succulents for sale are perfect for any indoor or outdoor space. "),
     Category.create!(name: "Aloe", description: "Aloe vera barbadensis miller plants are easy-to-grow succulents. More commonly known as an Aloe vera plant, they are perhaps the most commonly used medical plant in the world.  In addition to the health benefits, they are great mixed in with desert landscaping, according to the University of Arizona Cooperative Extension. Because the plants are sensitive to cold, they can only be grown outdoors in U.S. Department of Agriculture plant hardiness zones 8 through 11. They do, however, grow very well indoors in pots."),
@@ -29,17 +30,20 @@ categories = [
 
 user = User.create!(email: 'www.test@test.com', password: 'pppppp')
 
-a = Listing.create!(name: "My Echeveria", description: "Price negotiable, very nice plant", price: 10.0, categories: Category.where(name: 'Haworthia'), user_id: user.id)
+a = Listing.create!(name: "My Echeveria", description: "Price negotiable, very nice plant", price: 10.0, categories: Category.where(name: 'Echeveria'), user_id: user.id)
 a.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img1.jpg")), filename: "default_image" )
 
-b = Listing.create!(name: "My Haworthia", description: "Price non-negotiable, pickup only", price: 10.0, categories: Category.where(name: 'Crassula'), user_id: user.id)
+b = Listing.create!(name: "My Haworthia", description: "Price non-negotiable, pickup only", price: 10.0, categories: Category.where(name: 'Haworthia'), user_id: user.id)
 b.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img2.jpg")), filename: "default_image" )
 
-c = Listing.create!(name: "My Crassula", description: "My favourite plant", price: 10.0, categories: Category.where(name: 'Aloe'), user_id: user.id)
+c = Listing.create!(name: "My Crassula", description: "My favourite plant", price: 10.0, categories: Category.where(name: 'Crassula'), user_id: user.id)
 c.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img3.jpg")), filename: "default_image" )
 
-d = Listing.create!(name: "My Aloe", description: "Free for pickup", price: 10.0, categories: Category.where(name: 'Aeonium'), user_id: user.id)
+d = Listing.create!(name: "My Aloe", description: "Free for pickup", price: 10.0, categories: Category.where(name: 'Aloe'), user_id: user.id)
 d.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img4.jpg")), filename: "default_image" )
+
+d = Listing.create!(name: "My Aeonium", description: "Free for pickup", price: 10.0, categories: Category.where(name: 'Aeonium'), user_id: user.id)
+d.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img_Aeonium.jpg")), filename: "default_image" )
 
 e = Listing.create!(name: "My Cactus", description: "Price negotiable", price: 10.0, categories: Category.where(name: 'Cactus'), user_id: user.id)
 e.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img5.jpg")), filename: "default_image" )

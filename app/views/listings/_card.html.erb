@@ -1,0 +1,11 @@
+<div class="card" style="width: 16rem;">
+    <div class="card-body">
+        <h5 class="card-title"><%= listing.name %></h5>
+        <div class="card-img-top"><%= cl_image_tag listing.plant_picture.key, crop: :scale, width: 180, height: 180, cloud_name: 'dzeaqzups' if listing.plant_picture.attached? %></div>
+        <p class="card-text"><%= listing.description %></p>
+        <ul class="list-group list-group-flush">
+        <li class="list-group-item">Price: $<%= listing.price %></li>
+        <li class="list-group-item"><%= link_to 'View', listing %> | <%= link_to 'Edit', edit_listing_path(listing) %> | <%= link_to 'Delete', listing, method: :delete, data: { confirm: 'Are you sure?' } %></li>          
+        </ul>
+     </div>
+</div>

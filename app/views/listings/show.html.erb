@@ -2,24 +2,32 @@
 
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <h1> <%= @listing.name %> </h1>
-</p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @listing.description %>
-</p>
+<section>
+    <% if @listing.plant_picture.attached? %>
+  <img> <%= cl_image_tag @listing.plant_picture.key, crop: :scale, width: 300, cloud_name: 'dzeaqzups', class: "img-fluid" %>
+    <%end%>
+  <p>
+    <h2> <%= @listing.name %> </h1>
+  </p>
+  <p>
+    <strong>Description:</strong>
+    <%= @listing.description %>
+  </p>
 
-<p>
-  <strong>Price:</strong>
-  <%= @listing.price %>
-</p>
+  <p>
+    <strong>Price:</strong>
+    <%= @listing.price %>
+  </p>
 
-<% if @listing.plant_picture.attached? %>
-  <%= cl_image_tag @listing.plant_picture.key, crop: :scale, width: 300, cloud_name: 'dzeaqzups' %>
-<%end%>
+  <p>
+    <strong>Email the Seller on:</strong>
+    <%= @email %>
+  </p>
 
-<%= link_to 'Edit', edit_listing_path(@listing) %> |
-<%= link_to 'Back', listings_path %>
+</section>
+
+<footer>
+  <%= link_to 'Edit', edit_listing_path(@listing) %> |
+  <%= link_to 'Back', listings_path %>
+</footer>

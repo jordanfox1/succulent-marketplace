@@ -1,12 +1,12 @@
 <nav class="navbar navbar-light bg-light">
   <div class="container-fluid">
     <form class="d-flex">
-      <%= form_with url: "/search", method: :get do |f|  %>
+      <%= form_with url: "/search", method: :get, class: "search" do |f|  %>
         <%= f.text_field :query, placeholder: 'search by', class: "form-control me-2", type: "search" %>
         <%= f.select :type, ["name", "category"], class: "dropdown-menu" %>
         <%= f.submit :Enter, class:"btn btn-outline-success" %>
         <a class="nav-link active" aria-current="page" href="/listings">Home</a>
-      <%end%>
+      <% end %>
     </form>
   </div>
 </nav>

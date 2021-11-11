@@ -1,7 +1,7 @@
 class ListingsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   before_action :check_auth, except: [:search]
-  before_action :set_listing, only: %i[ show edit update destroy ]
+  before_action :set_listing, only: %i[show edit update destroy]
   
 
   # GET /listings or /listings.json
@@ -11,6 +11,7 @@ class ListingsController < ApplicationController
 
   # GET /listings/1 or /listings/1.json
   def show
+    @email = @listing.user.email
   end
 
   # GET /listings/new
@@ -67,17 +68,21 @@ class ListingsController < ApplicationController
       @listings = []
       categories = Category.where("name LIKE ?", "%#{params[:query].capitalize}%")
       # @listings = @categories.listings
-      p categories
-      p categories 
-      p categories
+      # p categories
+      # p categories 
+      # p categories
       categories.each do |cat|
         cat.listings.each do |list|
           @listings << list
         end
       end
-      p @listings
+      # p @listings
     end
     render 'index'
+  end
+
+  def categories
+    @categories = Category.all
   end
 
   private

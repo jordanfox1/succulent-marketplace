@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Categories</h1>
+<article>
+<% @categories.each do |cat| %>
+    <figure class="figure">
+          <h4><%= cat.name %></h4>
+          <img><%= cl_image_tag cat.listings.first.plant_picture.key, crop: :scale, width: 180, height: 180, cloud_name: 'dzeaqzups' if cat.listings.first.plant_picture.attached? %>
+          <figcaption class="figure-caption"><%= cat.description %></figcaption>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Listings of this category: <%= cat.listings.first.name %></li>
+          </ul>
+    </figure>
+  <% end %>
+</article>
+
+<a><%= link_to 'Create a New Listing', new_listing_path %></a>
+<a><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></a>
+
+
+    <img src="..." class="figure-img img-fluid rounded">
+    <figcaption class="figure-caption">A caption for the above image.</figcaption>
+  

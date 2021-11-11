@@ -1,8 +1,10 @@
 
 
-<h1>Editing Listing</h1>
+<h1>Editing <%= @listing.name %></h1>
 
 <%= render 'form', listing: @listing %>
 
-<%= link_to 'Show', @listing %> |
-<%= link_to 'Back', listings_path %>
+<footer>
+    <%= link_to 'View', @listing %> |
+    <%= link_to 'Back', listings_path %>
+</footer>

@@ -1,26 +1,23 @@
 
-
 <p id="notice"><%= notice %></p>
 
 <h1>Succulent Marketplace</h1>
 
-  <div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <% @listings.each do |listing| %>
+<article>
+    <% @listings.each do |listing| %>
+    <div class="card" style="width: 16rem;">
+      <div class="card-body">
           <h5 class="card-title"><%= listing.name %></h5>
-          <div class="card-img-top"><%= cl_image_tag listing.plant_picture.key, crop: :scale, width: 180, cloud_name: 'dzeaqzups' if listing.plant_picture.attached? %></div>
+          <div class="card-img-top"><%= cl_image_tag listing.plant_picture.key, crop: :scale, width: 180, height: 180, cloud_name: 'dzeaqzups' if listing.plant_picture.attached? %></div>
           <p class="card-text"><%= listing.description %></p>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Price: $<%= listing.price %></li>
-            <li class="list-group-item"><%= link_to 'Show', listing %></li>
-            <li class="list-group-item"><%= link_to 'Edit', edit_listing_path(listing) %></li>
-            <li class="list-group-item"><%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+          <li class="list-group-item">Price: $<%= listing.price %></li>
+          <li class="list-group-item"><%= link_to 'View', listing %> | <%= link_to 'Edit', edit_listing_path(listing) %> | <%= link_to 'Delete', listing, method: :delete, data: { confirm: 'Are you sure?' } %></li>          
           </ul>
-      <% end %>
-    </div>
+       </div>
   </div>
+  <% end %>
+</article>
 
-
-<br>
-
-<%= link_to 'New Listing', new_listing_path %>
+<a><%= link_to 'Create a New Listing', new_listing_path %></a>
+<a><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></a>

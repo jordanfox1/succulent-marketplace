@@ -32,6 +32,10 @@ class ListingPolicy
     update?
   end
 
+  def categories?
+    show?
+  end
+
   def destroy?
     true
   end

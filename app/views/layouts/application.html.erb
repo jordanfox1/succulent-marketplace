@@ -11,15 +11,17 @@
   </head>
 
   <body>
-    
-    
+    <div class="container-fluid">
       <!-- devise flash messages -->
-      <%= render '/listings/navbar' %>
+      <% if user_signed_in? %>
+        <%= render '/listings/navbar' %>
+      <% end %>
 
         <p class="notice"><%= notice %></p>
         <p class="alert"><%= alert %></p>
 
       <%= yield %>
+    </div>
 
 
   </body>
