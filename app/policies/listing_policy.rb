@@ -36,6 +36,10 @@ class ListingPolicy
     show?
   end
 
+  def seller?
+    show?
+  end
+
   def destroy?
     true
   end

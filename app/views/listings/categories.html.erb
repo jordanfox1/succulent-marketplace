@@ -1,14 +1,24 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Categories</h1>
-<article>
+<article class="categories">
 <% @categories.each do |cat| %>
     <figure class="figure">
           <h4><%= cat.name %></h4>
-          <img><%= cl_image_tag cat.listings.first.plant_picture.key, crop: :scale, width: 180, height: 180, cloud_name: 'dzeaqzups' if cat.listings.first.plant_picture.attached? %>
+          <% if cat.listings.first.plant_picture.attached? %>
+            <img><%= cl_image_tag cat.listings.first.plant_picture.key, crop: :scale, width: 180, height: 180, cloud_name: 'dzeaqzups' %>
+          <% else %>
+            <img src="./seed_pics/img6.jpg" alt="Image for this category was not found">
+          <% end %>
           <figcaption class="figure-caption"><%= cat.description %></figcaption>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Listings of this category: <%= cat.listings.first.name %></li>
+            <% if cat.listings.length > 1 %>
+              <%cat.listings.each do |c| %>
+                <li class="list-group-item">Listings of this category: <%= link_to c.name, c%></li>
+              <% end %>
+            <%else%>
+              <li class="list-group-item">Listings of this category: <%= link_to cat.listings.first.name, cat.listings.first%></li>
+            <% end %>
           </ul>
     </figure>
   <% end %>
@@ -18,6 +28,4 @@
 <a><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></a>
 
 
-    <img src="..." class="figure-img img-fluid rounded">
-    <figcaption class="figure-caption">A caption for the above image.</figcaption>
   

@@ -1,23 +1,29 @@
 
-<p id="notice"><%= notice %></p>
-
 <h1>Succulent Marketplace</h1>
 
 <article>
+  <% if @listings.length < 1 %>
+    <p>Could not find any succulents matching this search</p>
+  <% else %>
     <% @listings.each do |listing| %>
-    <div class="card" style="width: 16rem;">
+    <div class="card" style="width: 45rem; height: 30rem;">
       <div class="card-body">
           <h5 class="card-title"><%= listing.name %></h5>
           <div class="card-img-top"><%= cl_image_tag listing.plant_picture.key, crop: :scale, width: 180, height: 180, cloud_name: 'dzeaqzups' if listing.plant_picture.attached? %></div>
           <p class="card-text"><%= listing.description %></p>
           <ul class="list-group list-group-flush">
-          <li class="list-group-item">Price: $<%= listing.price %></li>
-          <li class="list-group-item"><%= link_to 'View', listing %> | <%= link_to 'Edit', edit_listing_path(listing) %> | <%= link_to 'Delete', listing, method: :delete, data: { confirm: 'Are you sure?' } %></li>          
+            <li class="list-group-item">Price: $<%= listing.price %></li>
+            <li class="list-group-item"><%= link_to 'View', listing %> </li>          
           </ul>
        </div>
-  </div>
+    </div>
+    <% end %>
   <% end %>
 </article>
 
-<a><%= link_to 'Create a New Listing', new_listing_path %></a>
-<a><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></a>
+<%if user_signed_in?%>
+  <footer>
+    <%= link_to 'Create a New Succulent', new_listing_path %> | 
+    <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
+  </footer>
+<%end%>

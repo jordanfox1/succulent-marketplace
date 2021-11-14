@@ -23,9 +23,22 @@ article {
     row-gap: 15px;
     justify-items: center;
   }
+  article.categories{
+    display: grid;
+    grid-template-columns: 50vw 50vw; 
+    grid-template-rows: 0fr;
+    column-gap: 10px;
+    row-gap: 15px;
+    justify-items: center;
+}
 
 @media only screen and (max-width: 600px) {
 article {
+    display: grid;
+    grid-template-columns: 100vw;
+    grid-template-rows: 50vh; 
+  }
+  article.categories {
     display: grid;
     grid-template-columns: 100vw;
     grid-template-rows: 50vh; 
@@ -55,4 +68,10 @@ footer{
 }
 
 figure {
+    margin: 3rem;
+    padding: 0;
+    display: flex;
+    justify-self: flex-start;
 }
+
+

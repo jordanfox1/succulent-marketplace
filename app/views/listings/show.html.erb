@@ -1,8 +1,4 @@
 
-
-<p id="notice"><%= notice %></p>
-
-
 <section>
     <% if @listing.plant_picture.attached? %>
   <img> <%= cl_image_tag @listing.plant_picture.key, crop: :scale, width: 300, cloud_name: 'dzeaqzups', class: "img-fluid" %>
@@ -25,9 +21,15 @@
     <%= @email %>
   </p>
 
+  <% if @listing.user.listings.all.length > 1 %>
+    <%= link_to "View This Seller's Succulents", seller_path(@listing, @seller) %>
+  <% end %>
 </section>
 
 <footer>
-  <%= link_to 'Edit', edit_listing_path(@listing) %> |
+  <%if current_user.listings.include?(@listing)%>
+    <%= link_to 'Edit', edit_listing_path(@listing) %> |
+    <%= link_to 'Delete', @listing, method: :delete, data: { confirm: 'Are you sure?' } %> | 
+  <%end%>
   <%= link_to 'Back', listings_path %>
 </footer>
