@@ -12,6 +12,9 @@ class ListingsController < ApplicationController
   def show
     @user = @listing.user
     @email = @listing.user.email
+
+    RequestMailer.requested_listing(@listing).deliver_now
+
   end
 
   # GET /listings/new

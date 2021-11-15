@@ -32,7 +32,7 @@ Category.create!(name: "Pseudolithos", description: "Pseudolithos is a genus of 
 # categories.each { |category_data| Category.create!(category_data)}
 
 user = User.create!(email: 'www.test@test.com', password: 'pppppp')
-user2 = User.create!(email: 'www.user2@test.com', password: 'pppppp')
+user2 = User.create!(email: 'jordanfox9415@gmail.com', password: 'pppppp')
 user3 = User.create!(email: 'www.user3@test.com', password: 'pppppp')
 user4 = User.create!(email: 'www.user4@test.com', password: 'qqqqqq')
 

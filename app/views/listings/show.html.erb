@@ -26,6 +26,8 @@
   <% end %>
 </section>
 
+<p>request this listing ?</p>
+
 <footer>
   <%if current_user.listings.include?(@listing)%>
     <%= link_to 'Edit', edit_listing_path(@listing) %> |
