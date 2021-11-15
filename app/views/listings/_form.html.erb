@@ -1,7 +1,7 @@
 <%= form_with(model: listing) do |form| %>
   <% if listing.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(listing.errors.count, "error") %> prohibited this listing from being saved:</h2>
+      <h6><%= pluralize(listing.errors.count, "error") %> prohibited this listing from being saved:</h6>
 
       <ul>
         <% listing.errors.each do |error| %>

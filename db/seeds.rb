@@ -36,35 +36,35 @@ user2 = User.create!(email: 'jordanfox9415@gmail.com', password: 'pppppp')
 user3 = User.create!(email: 'www.user3@test.com', password: 'pppppp')
 user4 = User.create!(email: 'www.user4@test.com', password: 'qqqqqq')
 
-a = Listing.create!(name: "My Echeveria", description: "Price negotiable, very nice plant", price: 10.0, categories: Category.where(name: 'Echeveria'), user_id: user.id)
-a.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img_echiveria.jpg")), filename: "default_image" )
+Listing.create!(name: "My Echeveria", description: "Price negotiable, very nice plant", price: 10.0, categories: Category.where(name: 'Echeveria'), user_id: user.id, plant_picture: { io: File.open(File.join(Rails.root, "/db/seed_pics/img_echiveria.jpg")), filename: "default_image" })
+# a.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img_echiveria.jpg")), filename: "default_image" )
 
-b = Listing.create!(name: "My Haworthia", description: "Price non-negotiable, pickup only", price: 10.0, categories: Category.where(name: 'Haworthia'), user_id: user.id)
-b.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img2.jpg")), filename: "default_image" )
+Listing.create!(name: "My Haworthia", description: "Price non-negotiable, pickup only", price: 10.0, categories: Category.where(name: 'Haworthia'), user_id: user.id, plant_picture: {io: File.open(File.join(Rails.root, "/db/seed_pics/img2.jpg")), filename: "default_image"})
+# b.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img2.jpg")), filename: "default_image" )
 
-c = Listing.create!(name: "My Crassula", description: "My favourite plant", price: 10.0, categories: Category.where(name: 'Crassula'), user_id: user.id)
-c.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img3.jpg")), filename: "default_image" )
+Listing.create!(name: "My Crassula", description: "My favourite plant", price: 10.0, categories: Category.where(name: 'Crassula'), user_id: user.id, plant_picture: {io: File.open(File.join(Rails.root, "/db/seed_pics/img3.jpg")), filename: "default_image"})
+# c.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img3.jpg")), filename: "default_image" )
 
-d = Listing.create!(name: "My Aloe", description: "Free for pickup", price: 10.0, categories: Category.where(name: 'Aloe'), user_id: user.id)
-d.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img4.jpg")), filename: "default_image" )
+Listing.create!(name: "My Aloe", description: "Free for pickup", price: 10.0, categories: Category.where(name: 'Aloe'), user_id: user.id, plant_picture: {io: File.open(File.join(Rails.root, "/db/seed_pics/img4.jpg")), filename: "default_image"})
+# d.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img4.jpg")), filename: "default_image" )
 
-e = Listing.create!(name: "My Aeonium", description: "Free for pickup", price: 10.0, categories: Category.where(name: 'Aeonium'), user_id: user.id)
-e.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img_Aeonium.jpg")), filename: "default_image" )
+Listing.create!(name: "My Aeonium", description: "Free for pickup", price: 10.0, categories: Category.where(name: 'Aeonium'), user_id: user.id, plant_picture: {io: File.open(File.join(Rails.root, "/db/seed_pics/img_Aeonium.jpg")), filename: "default_image"})
+# e.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img_Aeonium.jpg")), filename: "default_image" )
 
-f = Listing.create!(name: "My Cactus", description: "Price negotiable", price: 10.0, categories: Category.where(name: 'Cactus'), user_id: user4.id)
-f.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img5.jpg")), filename: "default_image" )
+Listing.create!(name: "My Cactus", description: "Price negotiable", price: 10.0, categories: Category.where(name: 'Cactus'), user_id: user4.id, plant_picture: {io: File.open(File.join(Rails.root, "/db/seed_pics/img5.jpg")), filename: "default_image"})
+# f.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img5.jpg")), filename: "default_image" )
 
-g = Listing.create!(name: "My Unknown Plant", description: "A plant that I stole from my neighbour. Price non-negotiable", price: 10.0, categories: Category.where(name: 'Other'), user_id: user.id)
-g.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img6.jpg")), filename: "default_image" )
+Listing.create!(name: "My Unknown Plant", description: "A plant that I stole from my neighbour. Price non-negotiable", price: 10.0, categories: Category.where(name: 'Other'), user_id: user.id, plant_picture: {io: File.open(File.join(Rails.root, "/db/seed_pics/img6.jpg")), filename: "default_image"})
+# g.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img6.jpg")), filename: "default_image" )
 
-h = Listing.create!(name: "My Stapelia", description: "A plant that I stole from my neighbour. Price non-negotiable", price: 10.0, categories: Category.where(name: 'Stapelia'), user_id: user3.id)
-h.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img6.jpg")), filename: "default_image" )
+Listing.create!(name: "My Stapelia", description: "A plant that I stole from my neighbour. Price non-negotiable", price: 10.0, categories: Category.where(name: 'Stapelia'), user_id: user3.id, plant_picture: {io: File.open(File.join(Rails.root, "/db/seed_pics/img6.jpg")), filename: "default_image"})
+# h.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img6.jpg")), filename: "default_image" )
 
-i = Listing.create!(name: "My beautiful Sedum", description: "A plant that I stole from my neighbour. Price non-negotiable", price: 10.0, categories: Category.where(name: 'Sedum'), user_id: user2.id)
-i.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img6.jpg")), filename: "default_image" )
+Listing.create!(name: "My beautiful Sedum", description: "A plant that I stole from my neighbour. Price non-negotiable", price: 10.0, categories: Category.where(name: 'Sedum'), user_id: user2.id, plant_picture: {io: File.open(File.join(Rails.root, "/db/seed_pics/img6.jpg")), filename: "default_image"})
+# i.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img6.jpg")), filename: "default_image" )
 
-j = Listing.create!(name: "My Pseudolithos", description: "A plant that I stole from my neighbour. Price non-negotiable", price: 10.0, categories: Category.where(name: 'Pseudolithos'), user_id: user2.id)
-j.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img6.jpg")), filename: "default_image" )
+Listing.create!(name: "My Pseudolithos", description: "A plant that I stole from my neighbour. Price non-negotiable", price: 10.0, categories: Category.where(name: 'Pseudolithos'), user_id: user2.id,plant_picture: {io: File.open(File.join(Rails.root, "/db/seed_pics/img6.jpg")), filename: "default_image"})
+# j.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img6.jpg")), filename: "default_image" )
 
-k = Listing.create!(name: "My Plant", description: "A plant that I stole from my neighbour. Price non-negotiable", price: 10.0, categories: Category.where(name: 'Other'), user_id: user2.id)
-k.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img6.jpg")), filename: "default_image" )
+Listing.create!(name: "My Plant", description: "A plant that I stole from my neighbour. Price non-negotiable", price: 10.0, categories: Category.where(name: 'Other'), user_id: user2.id, plant_picture: {io: File.open(File.join(Rails.root, "/db/seed_pics/img6.jpg")), filename: "default_image"})
+# k.plant_picture.attach(io: File.open(File.join(Rails.root, "/db/seed_pics/img6.jpg")), filename: "default_image" )

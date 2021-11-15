@@ -26,7 +26,10 @@
   <% end %>
 </section>
 
-<p>request this listing ?</p>
+<% if !current_user.listings.include?(@listing) && @requested == 0 %>
+  <%= link_to 'request this listing?', request_listing_path(@listing) %>
+  <% @requested += 1 %>
+<% end %>
 
 <footer>
   <%if current_user.listings.include?(@listing)%>

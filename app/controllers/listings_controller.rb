@@ -1,7 +1,7 @@
 class ListingsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   before_action :check_auth, except: [:search]
-  before_action :set_listing, only: %i[show seller edit update destroy]
+  before_action :set_listing, only: %i[show request_listing seller edit update destroy]
 
   # GET /listings or /listings.json
   def index
@@ -10,13 +10,16 @@ class ListingsController < ApplicationController
 
   # GET /listings/1 or /listings/1.json
   def show
+    @requested = 0
     @user = @listing.user
     @email = @listing.user.email
-
-    RequestMailer.requested_listing(@listing).deliver_now
-
   end
 
+  def request_listing
+    RequestMailer.requested_listing(@listing).deliver_now
+    flash.now[:notice] = "A request email has been sent to this user!"
+    render 'show'
+  end
   # GET /listings/new
   def new
     @listing = current_user.listings.build

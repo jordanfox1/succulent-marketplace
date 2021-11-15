@@ -40,6 +40,10 @@ class ListingPolicy
     show?
   end
 
+  def request_listing?
+    show?
+  end
+
   def destroy?
     true
   end
