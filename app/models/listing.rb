@@ -5,9 +5,14 @@ class Listing < ApplicationRecord
 
     has_one_attached :plant_picture
 
-    validates :name, presence: { message: "Please enter a name for your succulent!" }
-    validates :price, presence: { message: "Please enter a dollar value price for your succulent!" }
+    # validates the price, if the user enters an integer, it converts it to a float
+    validates :price, presence: true, numericality: {only_float: true}
+
+    
+
     validates :plant_picture, presence: { message: "Please provide a picture for your succulent!" }
     
+    validates :name, length: {minimum: 1, maximum: 50}
+
     before_create :must_have_picture # active-storage will create this in the table automatically
 end

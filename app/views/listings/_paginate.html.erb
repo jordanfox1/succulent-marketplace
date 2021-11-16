@@ -1,9 +1,9 @@
 <div>
     <% if @page != 0 %>
-      <%=link_to "< Previous", listings_path(page: @page - 1)%>
+      <%= link_to "< Previous", url_for(action: action, page: @page - 1) %>
     <% end %> 
-    | 
+    
     <% if @listings.length == 5 %>
-      <%=link_to "Next >", listings_path(page: @page + 1)%>
+      <%= link_to "Next >", url_for(action: action, page: @page + 1) %>
     <% end %>
 </div>

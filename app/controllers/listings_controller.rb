@@ -2,12 +2,14 @@ class ListingsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   before_action :check_auth, except: [:search]
   before_action :set_listing, only: %i[show request_listing seller edit update destroy]
+  before_action :set_page, only: [:index, :seller, :search]
+  before_action :set_categories, only: [:new, :create, :search, :categories]
+
   LISTINGS_PER_PAGE = 5
 
   # GET /listings or /listings.json
   def index
-    @page = params.fetch(:page, 0).to_i
-    @listings = Listing.offset(@page * LISTINGS_PER_PAGE).limit(LISTINGS_PER_PAGE)  
+    @listings = Listing.offset(@page * LISTINGS_PER_PAGE).limit(LISTINGS_PER_PAGE)
   end
 
   # GET /listings/1 or /listings/1.json
@@ -17,14 +19,15 @@ class ListingsController < ApplicationController
     @email = @listing.user.email
   end
 
+  # Sends an email to the @listing.user's email and re-renders the page to hide the notification button.
   def request_listing
     RequestMailer.requested_listing(@listing).deliver_now
     flash.now[:notice] = "A request email has been sent to this user!"
     render 'show'
   end
+
   # GET /listings/new
-  def new
-    @categories = Category.all
+  def new 
     @listing = current_user.listings.build
   end
 
@@ -34,9 +37,7 @@ class ListingsController < ApplicationController
 
   # POST /listings or /listings.json
   def create
-    @categories = Category.all
     @listing = current_user.listings.build(listing_params)
-
     respond_to do |format|
       if @listing.save
         format.html { redirect_to @listing, notice: "Listing was successfully created." }
@@ -88,12 +89,12 @@ class ListingsController < ApplicationController
   end
 
   def categories
-    @categories = Category.all
   end
 
   def seller
     @seller = @listing.user
     @listings = @seller.listings
+    @listings = @listings.offset(@page * LISTINGS_PER_PAGE).limit(LISTINGS_PER_PAGE)
   end
 
   private
@@ -101,6 +102,14 @@ class ListingsController < ApplicationController
     def set_listing
       @listing = Listing.find(params[:id])
       @listings = Listing.all
+    end
+
+    def set_categories
+      @categories = Category.all
+    end
+
+    def set_page
+      @page = params.fetch(:page, 0).to_i
     end
 
     # Only allow a list of trusted parameters through.
