@@ -2,10 +2,13 @@ class ListingsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   before_action :check_auth, except: [:search]
   before_action :set_listing, only: %i[show request_listing seller edit update destroy]
+  LISTINGS_PER_PAGE = 5
 
   # GET /listings or /listings.json
   def index
-    @listings = Listing.all
+    @page = params.fetch(:page, 0).to_i
+    @listings = Listing.offset(@page * LISTINGS_PER_PAGE).limit(LISTINGS_PER_PAGE)
+    
   end
 
   # GET /listings/1 or /listings/1.json
@@ -22,6 +25,7 @@ class ListingsController < ApplicationController
   end
   # GET /listings/new
   def new
+    @categories = Category.all
     @listing = current_user.listings.build
   end
 
@@ -31,6 +35,7 @@ class ListingsController < ApplicationController
 
   # POST /listings or /listings.json
   def create
+    @categories = Category.all
     @listing = current_user.listings.build(listing_params)
 
     respond_to do |format|

@@ -28,7 +28,6 @@ Category.create!(name: "Stapelia", description: "Stapelia is a genus of low-grow
 Category.create!(name: "Sedum", description: "Sedum is a large genus of flowering plants in the family Crassulaceae, members of which are commonly known as stonecrops. The genus has been described as containing up to 600 species, subsequently reduced to 400–500. The plants vary from annual and creeping herbs to shrubs.")
 Category.create!(name: "Pseudolithos", description: "Pseudolithos is a genus of succulent flowering plants of the family Apocynaceae, indigenous to Somalia, Yemen and Oman.")
 
-
 # categories.each { |category_data| Category.create!(category_data)}
 
 user = User.create!(email: 'www.test@test.com', password: 'pppppp')
