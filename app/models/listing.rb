@@ -2,17 +2,21 @@ class Listing < ApplicationRecord
     has_many :listing_categories, dependent: :destroy
     belongs_to :user
     has_many :categories, through: :listing_categories
-
     has_one_attached :plant_picture
 
-    # validates the price, if the user enters an integer, it converts it to a float
-    validates :price, presence: true, numericality: {only_float: true}
+    # Validates the price, if the user enters an integer, it converts it to a decimal to accuratly display price
+    validates :price, presence: true, numericality: {only_decimal: true}
 
+    # Validation for file type provided by the active_storage_validations gem. This will ensure only images are uploaded
+    validates :plant_picture, attached: true, content_type: [:png, :jpg, :jpeg]
     
-
-    validates :plant_picture, presence: { message: "Please provide a picture for your succulent!" }
-    
+    # Validates and titleizes name attribute
     validates :name, length: {minimum: 1, maximum: 50}
+    before_save :titleize_name
 
-    before_create :must_have_picture # active-storage will create this in the table automatically
+    validates :description, length: {maximum: 250}, allow_blank: true
+
+    def titleize_name
+        self.name = self.name.titleize
+    end
 end

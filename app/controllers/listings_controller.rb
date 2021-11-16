@@ -3,7 +3,7 @@ class ListingsController < ApplicationController
   before_action :check_auth, except: [:search]
   before_action :set_listing, only: %i[show request_listing seller edit update destroy]
   before_action :set_page, only: [:index, :seller, :search]
-  before_action :set_categories, only: [:new, :create, :search, :categories]
+  before_action :set_categories, only: [:new, :create, :search, :categories, :edit]
 
   LISTINGS_PER_PAGE = 5
 
@@ -38,10 +38,13 @@ class ListingsController < ApplicationController
   # POST /listings or /listings.json
   def create
     @listing = current_user.listings.build(listing_params)
+
+    # before_save :method
     respond_to do |format|
       if @listing.save
         format.html { redirect_to @listing, notice: "Listing was successfully created." }
         format.json { render :show, status: :created, location: @listing }
+
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @listing.errors, status: :unprocessable_entity }
@@ -72,21 +75,22 @@ class ListingsController < ApplicationController
   end
 
   def search
-    case params[:type]
-    when "name"
-      @listings = Listing.where("name like ?", "%#{params[:query].capitalize}%")
-    when "category"
-      @listings = []
-      @categories = Category.where("name like ?", "%#{params[:query].capitalize}%")
+      case params[:type]
+      when "name"
+        @listings = Listing.where("name like ?", "%#{params[:query].titleize}%")
+      when "category"
+        @listings = []
+        @categories = Category.where("name like ?", "%#{params[:query].titleize}%")
 
-      @categories.each do |cat|
-        cat.listings.each do |list|
-          @listings << list
+        @categories.each do |cat|
+          cat.listings.each do |list|
+            @listings << list
+          end
         end
       end
-    end
-    render 'index'
+      render 'index'
   end
+
 
   def categories
   end
