@@ -1,5 +1,8 @@
 <p id="notice"><%= notice %></p>
 
+<!-- Categories view. it does not include pagination as a user can not create new categories -->
+<!-- Exact same logic as the index view, but slightly different operations in the loop, therefore I did not use a partial  -->
+
 <h1>Categories</h1>
 <article class="categories">
 <% @categories.each do |cat| %>
@@ -24,8 +27,4 @@
   <% end %>
 </article>
 
-<a><%= link_to 'Create a New Listing', new_listing_path %></a>
-<a><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></a>
-
-
-  
+<%= render "footer" %>

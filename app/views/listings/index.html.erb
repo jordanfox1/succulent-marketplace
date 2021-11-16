@@ -1,40 +1,10 @@
 
 <h1>Succulent Marketplace</h1>
 
-<div>
-  <% if @page != 0 %>
-    <%=link_to "< Previous", listings_path(page: @page - 1)%>
-  <% end %> 
-  | 
-  <% if @listings.length == 5 %>
-    <%=link_to "Next >", listings_path(page: @page + 1)%>
-  <% end %>
-</div>
+<%= render 'paginate' %>
 
-<article>
-  <% if @listings.length < 1 %>
-    <p>Could not find any succulents matching this search</p>
-  <% else %>
-    <% @listings.each do |listing| %>
-    <div class="card" style="width: 45rem; height: 30rem;">
-      <div class="card-body">
-          <h5 class="card-title"><%= listing.name %></h5>
-          <div class="card-img-top"><%= cl_image_tag listing.plant_picture.key, crop: :scale, width: 180, height: 180, cloud_name: 'dzeaqzups' if listing.plant_picture.attached? %></div>
-          <p class="card-text"><%= listing.description %></p>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Price: $<%= listing.price %></li>
-            <li class="list-group-item"><%= link_to 'View', listing %> </li>          
-          </ul>
-       </div>
-    </div>
-    <% end %>
-  <% end %>
-</article>
-
+<%= render 'card' %>
 
 <%if user_signed_in?%>
-  <footer>
-    <%= link_to 'Create a New Succulent', new_listing_path %> | 
-    <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
-  </footer>
+  <%= render "footer" %>
 <%end%>

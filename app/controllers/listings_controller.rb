@@ -7,8 +7,7 @@ class ListingsController < ApplicationController
   # GET /listings or /listings.json
   def index
     @page = params.fetch(:page, 0).to_i
-    @listings = Listing.offset(@page * LISTINGS_PER_PAGE).limit(LISTINGS_PER_PAGE)
-    
+    @listings = Listing.offset(@page * LISTINGS_PER_PAGE).limit(LISTINGS_PER_PAGE)  
   end
 
   # GET /listings/1 or /listings/1.json
