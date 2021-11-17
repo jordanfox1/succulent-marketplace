@@ -66,4 +66,4 @@ Listing.create!(name: "My Trichodiadema", description: "A plant that I stole fro
 
 Listing.create!(name: "My amazing tylecodon", description: "A very nice plant", price: 99.99, categories: Category.where(name: 'Tylecodon'), user_id: user2.id, plant_picture: {io: File.open(File.join(Rails.root, "/db/seed_pics/img_tylecodon.jpg")), filename: "default_image"})
 
-Listing.create!(name: "Very nice Adromischus", description: "A very rare plant", price: 33.50, categories: Category.where(name: 'Adromischus'), user_id: user2.id, plant_picture: {io: File.open(File.join(Rails.root, "/db/seed_pics/img_adromischus.jpg")), filename: "default_image"})
+Listing.create!(name: "Very nice Adromischus", description: "A very rare plant", price: 33.50, categories: Category.where(name: 'Adromischus'), user_id: user2.id, plant_picture: {io: File.open(File.join(Rails.root, "/db/seed_pics/img_Adromischus.jpg")), filename: "default_image"})
