@@ -24,7 +24,6 @@ Category.create!(name: "Adromischus", description: "Aeonium, the tree houseleeks
 Category.create!(name: "Tylecodon", description: "Tylecodon is a genus of succulent plants in the family Crassulaceae, native to southern Africa. Until the late 1970s all these plants were included in the genus Cotyledon, but in 1978 Helmut Toelken of the Botanical Research Institute, Pretoria, split them off into a genus of their own.")
 Category.create!(name: "Pseudolithos", description: "Pseudolithos is a genus of succulent flowering plants of the family Apocynaceae, indigenous to Somalia, Yemen and Oman.")
 
-
 user = User.create!(email: 'SucculentMarketplace@gmail.com', password: 'pppppp')
 user2 = User.create!(email: 'hoodooblonde@gmail.com', password: 'pppppp')
 user3 = User.create!(email: 'jordanfox9415@gmail.com', password: 'pppppp')
