@@ -19,7 +19,7 @@
               <%cat.listings.each do |c| %>
                 <li class="list-group-item">Listings of this category: <%= link_to c.name, c%></li>
               <% end %>
-            <%else%>
+            <% else %>
               <li class="list-group-item">Listings of this category: <%= link_to cat.listings.first.name, cat.listings.first%></li>
             <% end %>
           </ul>
@@ -27,4 +27,4 @@
   <% end %>
 </article>
 
-<%= render "footer" %>
+

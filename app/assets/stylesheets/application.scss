@@ -15,7 +15,57 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 
+body {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background-color: #DAC3AA;
+}
+
+p {
+    color: #394648;
+}
+
+figcaption{
+    color: #394648;
+}
+
+.list-groud-item{
+    color: #394648;
+}
+
 section {
     display: grid;
     justify-content: center;
+}
+
+h1 {
+    text-shadow: 1px 1px #69995d;
+    text-align: center;
+    color: #394648
+}
+
+h4 {
+    color: #394648
+}
+
+a {
+    color: #69995D;
+}
+
+footer {
+   position:absolute;
+   bottom:0;
+}
+
+img {
+    border-radius: 5%;
+    margin: 0 2px 0 2px;
+}
+
+.form-control {
+    background-color: #f5e8da;
+}
+
+.list-group-item {
+    background-color: #DAC3AA;
+    color: #394648;
 }

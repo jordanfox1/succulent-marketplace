@@ -28,21 +28,24 @@
   <% end %>
 
   <% if @listing.user.listings.all.length > 1 && @listing.user != current_user %>
-    <%= link_to "View This Seller's Succulents", seller_path(@listing, @seller) %>
+   <p><%= link_to "View This Seller's Succulents", seller_path(@listing, @seller) %></p> 
   <% else %>
   <%= link_to "View Your Succulents", seller_path(@listing, @seller) %>
   <% end %>
-</section>
 
-<% if !current_user.listings.include?(@listing) && @requested == 0 %>
-  <%= link_to 'request this listing?', request_listing_path(@listing) %>
-  <% @requested += 1 %>
-<% end %>
+  <% if !current_user.listings.include?(@listing) && @requested == 0 %>
+    <%= link_to 'request this listing?', request_listing_path(@listing), class: "btn btn-success" %>
+    <% @requested += 1 %>
+  <% end %>
+
+</section>
 
 <footer>
   <%if current_user.listings.include?(@listing)%>
     <%= link_to 'Edit', edit_listing_path(@listing) %> |
     <%= link_to 'Delete', @listing, method: :delete, data: { confirm: 'Are you sure?' } %> | 
   <%end%>
-  <%= link_to 'Back', :back %>
+  <% if @requested == 0 %>
+    <%= link_to 'Back', :back %>
+  <% end %>
 </footer>

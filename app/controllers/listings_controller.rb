@@ -1,25 +1,32 @@
 class ListingsController < ApplicationController
+  #setting up variables and authentication
   before_action :authenticate_user!, except: [:index]
   before_action :check_auth, except: [:search]
   before_action :set_listing, only: %i[show request_listing seller edit update destroy]
   before_action :set_page, only: %i[index seller search]
   before_action :set_categories, only: %i[new create search categories edit]
 
+  #constant for pagination
   LISTINGS_PER_PAGE = 4
 
-  # GET /listings or /listings.json
+  #implements pagination by increasing the @page variable
+  #limiting @listings to 4 per page
+  #selects all required attributes before rendering
   def index
-    @listings = Listing.offset(@page * LISTINGS_PER_PAGE).limit(LISTINGS_PER_PAGE)
+    @listings = Listing.select([:name, :price, :description, :id]).includes(:plant_picture_attachment).offset(@page * LISTINGS_PER_PAGE).limit(LISTINGS_PER_PAGE)
   end
 
-  # GET /listings/1 or /listings/1.json
+  #@requested variable is to help stop a user from spamming emails on the page
+  #@user is the user associated with the current listing
+  #@email is the email belonging to that user
+  #since only one call is being made through listing.user, no need to implement eager loading
   def show
     @requested = 0
     @user = @listing.user
     @email = @listing.user.email
   end
 
-  # Sends an email to the @listing.user's email and re-renders the page to hide the notification button.
+  # Sends an email to the @listing.user's email and re-renders the page to hide the request button.
   def request_listing
     RequestMailer.requested_listing(@listing).deliver_now
     flash.now[:notice] = "A request email has been sent to this user!"
@@ -33,13 +40,16 @@ class ListingsController < ApplicationController
 
   # GET /listings/1/edit
   def edit
+    if current_user.id != @listing.user.id
+      redirect_to listing_path
+      flash[:notice] = "You can not edit this listing!"
+    end
   end
 
   # POST /listings or /listings.json
   def create
     @listing = current_user.listings.build(listing_params)
 
-    # before_save :method
     respond_to do |format|
       if @listing.save
         format.html { redirect_to @listing, notice: "Listing was successfully created." }
@@ -74,7 +84,11 @@ class ListingsController < ApplicationController
     end
   end
 
+  #Navabar functionality retrieves the relevent listings from the db based on params[:type]
+  #renders the index with the correct listings 
   def search
+      @listings = Listing.all
+
       case params[:type]
       when "name"
         @listings = Listing.where("name like ?", "%#{params[:query].titleize}%")
@@ -91,28 +105,24 @@ class ListingsController < ApplicationController
       render 'index'
   end
 
-
+  #Eager loading listings for each category
   def categories
-    #eager loading listings for each category
     @categories = Category.includes(:listings)
-    
   end
 
   def seller
     @seller = @listing.user
-    @listings = @seller.listings
-    @listings = @listings.offset(@page * LISTINGS_PER_PAGE).limit(LISTINGS_PER_PAGE)
+    @listings = @seller.listings.select([:name, :price, :description, :id]).includes(:plant_picture_attachment).offset(@page * LISTINGS_PER_PAGE).limit(LISTINGS_PER_PAGE)
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_listing
       @listing = Listing.find(params[:id])
-      @listings = Listing.all
     end
 
     def set_categories
-      @categories = Category.all
+      @categories = Category.select([:name, :description, :id])
     end
 
     def set_page

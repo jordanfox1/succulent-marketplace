@@ -4,13 +4,13 @@
     <figure class="figure">
           <h4><%= listing.name %></h4>
           <% if listing.plant_picture.attached? %>
-            <img class="figure-img img-fluid rounded"><%= cl_image_tag listing.plant_picture.key, crop: :scale, width: 350, height: 360, cloud_name: 'dzeaqzups' %>
+            <img class="figure-img"><%= cl_image_tag listing.plant_picture.key, crop: :scale, width: 350, height: 360, cloud_name: 'dzeaqzups' %>
           <% else %>
             <img src="./seed_pics/img6.jpg" alt="Correct image was not found">
           <% end %>
           <figcaption class="figure-caption"><%= listing.description %></figcaption>
-                <p class="list-group-item">Price: $<%= listing.price %></p>
-                <p><%= link_to 'View', listing %> </p>                 
+                <p>Price: $<%= listing.price %></p>
+                <p><%= link_to 'View', listing %></p>                 
     </figure>
   <% end %>
 </div>
