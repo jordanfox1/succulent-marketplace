@@ -4,7 +4,7 @@ class ListingsController < ApplicationController
   before_action :check_auth, except: [:search]
   before_action :set_listing, only: %i[show request_listing seller edit update destroy]
   before_action :set_page, only: %i[index seller search]
-  before_action :set_categories, only: %i[new create search categories edit]
+  before_action :set_categories, only: %i[new create categories edit]
 
   #constant for pagination
   LISTINGS_PER_PAGE = 4
@@ -16,10 +16,10 @@ class ListingsController < ApplicationController
     @listings = Listing.select([:name, :price, :description, :id]).includes(:plant_picture_attachment).offset(@page * LISTINGS_PER_PAGE).limit(LISTINGS_PER_PAGE)
   end
 
-  #@requested variable is to help stop a user from spamming emails on the page
-  #@user is the user associated with the current listing
-  #@email is the email belonging to that user
-  #since only one call is being made through listing.user, no need to implement eager loading
+  # @requested variable is to help stop a user from spamming emails on the page
+  # @user is the user associated with the current listing
+  # @email is the email belonging to that user
+  # since only one call is being made through listing.user, no need to implement eager loading
   def show
     @requested = 0
     @user = @listing.user
@@ -34,11 +34,12 @@ class ListingsController < ApplicationController
   end
 
   # GET /listings/new
-  def new 
+  def new
     @listing = current_user.listings.build
   end
 
   # GET /listings/1/edit
+  # Redirect to prevent unauthorized editing
   def edit
     if current_user.id != @listing.user.id
       redirect_to listing_path
@@ -84,17 +85,17 @@ class ListingsController < ApplicationController
     end
   end
 
-  #Navabar functionality retrieves the relevent listings from the db based on params[:type]
-  #renders the index with the correct listings 
+  # Navabar functionality retrieves the relevent listings from the db based on params[:type]
+  # Renders the index with the correct listings according to the search conditions
+  # Eager loads attributes and associations where possible
   def search
-      @listings = Listing.all
 
       case params[:type]
       when "name"
-        @listings = Listing.where("name like ?", "%#{params[:query].titleize}%")
+        @listings = Listing.where("name like ?", "%#{params[:query].titleize}%").select([:name, :price, :description, :id]).includes(:plant_picture_attachment)
       when "category"
         @listings = []
-        @categories = Category.where("name like ?", "%#{params[:query].titleize}%")
+        @categories = Category.where("name like ?", "%#{params[:query].titleize}%").includes(:listings)
 
         @categories.each do |cat|
           cat.listings.each do |list|
@@ -105,11 +106,13 @@ class ListingsController < ApplicationController
       render 'index'
   end
 
-  #Eager loading listings for each category
+  # Eager loading for @categories set in private method
+  # Still a lot of querying in the view, however the number of categories is constant
   def categories
-    @categories = Category.includes(:listings)
   end
 
+  # Finds the seller associated with the listing
+  # Selects and includes the required attributes and associations for @listings
   def seller
     @seller = @listing.user
     @listings = @seller.listings.select([:name, :price, :description, :id]).includes(:plant_picture_attachment).offset(@page * LISTINGS_PER_PAGE).limit(LISTINGS_PER_PAGE)
@@ -120,11 +123,11 @@ class ListingsController < ApplicationController
     def set_listing
       @listing = Listing.find(params[:id])
     end
-
+    # Setting @categories and selecting and including appropriate attributes and associations
     def set_categories
-      @categories = Category.select([:name, :description, :id])
+      @categories = Category.select([:name, :description, :id]).includes(:listings)
     end
-
+    # Setting page variable for pagination
     def set_page
       @page = params.fetch(:page, 0).to_i
     end

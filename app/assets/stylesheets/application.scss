@@ -38,7 +38,7 @@ section {
 }
 
 h1 {
-    text-shadow: 1px 1px #69995d;
+    text-shadow: 1px 1px #394648;
     text-align: center;
     color: #394648
 }
@@ -51,10 +51,11 @@ a {
     color: #69995D;
 }
 
-footer {
-   position:absolute;
+footer{
+   position: fixed;
    bottom:0;
 }
+
 
 img {
     border-radius: 5%;
@@ -68,4 +69,12 @@ img {
 .list-group-item {
     background-color: #DAC3AA;
     color: #394648;
+}
+
+h2{
+    color: #394648;
+}
+
+.cat {
+    display: block
 }
