@@ -16,13 +16,21 @@
     <%= "$#{@listing.price}" %>
   </p>
 
-  <p>
-    <strong>Email the Seller on:</strong>
-    <%= @email %>
-  </p>
+  <% if current_user.email == @email %>
+    <p>
+      <strong>This succulent belongs to you!</strong>
+    </p>
+  <% else %>
+    <p>
+      <strong>Email the Seller on:</strong>
+      <%= @email %>
+    </p>
+  <% end %>
 
-  <% if @listing.user.listings.all.length > 1 %>
+  <% if @listing.user.listings.all.length > 1 && @listing.user != current_user %>
     <%= link_to "View This Seller's Succulents", seller_path(@listing, @seller) %>
+  <% else %>
+  <%= link_to "View Your Succulents", seller_path(@listing, @seller) %>
   <% end %>
 </section>
 
@@ -36,5 +44,5 @@
     <%= link_to 'Edit', edit_listing_path(@listing) %> |
     <%= link_to 'Delete', @listing, method: :delete, data: { confirm: 'Are you sure?' } %> | 
   <%end%>
-  <%= link_to 'Back', listings_path %>
+  <%= link_to 'Back', :back %>
 </footer>

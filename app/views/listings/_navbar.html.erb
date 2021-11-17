@@ -1,10 +1,10 @@
 <nav>
   <div>
-      <%= form_with url: "/search", method: :get do |f|  %>
+      <%= form_with url: "/search", method: :get, class: "form-control me-2" do |f|  %>
         <%= f.text_field :query, placeholder: 'search by' %>
-        <%= f.select :type, ["name", "category"] %>
-        <%= f.submit :Enter %>
-        <a href="/listings">Home</a>
+        <%= f.select :type, ["name", "category"], class: "dropdown-menu"  %>
+        <%= f.submit :Enter, class: 'btn btn-outline-success' %>
+        <a href="/listings" >Home</a>
         |
         <a href="/categories">Categories</a>
       <% end %>

@@ -1,18 +1,16 @@
 
-<article class="listings">
+<div>
 <% @listings.each do |listing| %>
     <figure class="figure">
           <h4><%= listing.name %></h4>
           <% if listing.plant_picture.attached? %>
-            <img><%= cl_image_tag listing.plant_picture.key, crop: :scale, width: 180, height: 180, cloud_name: 'dzeaqzups' %>
+            <img class="figure-img img-fluid rounded"><%= cl_image_tag listing.plant_picture.key, crop: :scale, width: 350, height: 360, cloud_name: 'dzeaqzups' %>
           <% else %>
             <img src="./seed_pics/img6.jpg" alt="Correct image was not found">
           <% end %>
           <figcaption class="figure-caption"><%= listing.description %></figcaption>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Price: $<%= listing.price %></li>
-                    <li class="list-group-item"><%= link_to 'View', listing %> </li>          
-                </ul>        
+                <p class="list-group-item">Price: $<%= listing.price %></p>
+                <p><%= link_to 'View', listing %> </p>                 
     </figure>
   <% end %>
-</article>
+</div>

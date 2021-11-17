@@ -2,10 +2,10 @@ class ListingsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   before_action :check_auth, except: [:search]
   before_action :set_listing, only: %i[show request_listing seller edit update destroy]
-  before_action :set_page, only: [:index, :seller, :search]
-  before_action :set_categories, only: [:new, :create, :search, :categories, :edit]
+  before_action :set_page, only: %i[index seller search]
+  before_action :set_categories, only: %i[new create search categories edit]
 
-  LISTINGS_PER_PAGE = 5
+  LISTINGS_PER_PAGE = 4
 
   # GET /listings or /listings.json
   def index
@@ -93,6 +93,9 @@ class ListingsController < ApplicationController
 
 
   def categories
+    #eager loading listings for each category
+    @categories = Category.includes(:listings)
+    
   end
 
   def seller
