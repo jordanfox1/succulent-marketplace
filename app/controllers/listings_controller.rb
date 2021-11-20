@@ -1,10 +1,12 @@
 class ListingsController < ApplicationController
-  #setting up variables and authentication
+  #setting up authentication
   before_action :authenticate_user!, except: [:index]
   before_action :check_auth, except: [:search]
+  # setting up variables
   before_action :set_listing, only: %i[show request_listing seller edit update destroy]
   before_action :set_page, only: %i[index seller search]
   before_action :set_categories, only: %i[new create categories edit]
+  before_action :set_requested, only: %i[show request_listing]
 
   #constant for pagination
   LISTINGS_PER_PAGE = 4
@@ -21,7 +23,7 @@ class ListingsController < ApplicationController
   # @email is the email belonging to that user
   # since only one call is being made through listing.user, no need to implement eager loading
   def show
-    @requested = 0
+    
     @user = @listing.user
     @email = @listing.user.email
   end
@@ -30,6 +32,7 @@ class ListingsController < ApplicationController
   def request_listing
     RequestMailer.requested_listing(@listing).deliver_now
     flash.now[:notice] = "A request email has been sent to this user!"
+    @requested.push(@listing)
     render 'show'
   end
 
@@ -130,6 +133,10 @@ class ListingsController < ApplicationController
     # Setting page variable for pagination
     def set_page
       @page = params.fetch(:page, 0).to_i
+    end
+
+    def set_requested
+      @requested = current_user.requested
     end
 
     # Only allow a list of trusted parameters through.

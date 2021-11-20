@@ -33,19 +33,19 @@
   <%= link_to "View Your Succulents", seller_path(@listing, @seller) %>
   <% end %>
 
-  <% if !current_user.listings.include?(@listing) && @requested == 0 %>
+  <% if @requested.include?@listing %>
+    <p>already requested!</p>
+  <% else %>
     <%= link_to 'request this listing?', request_listing_path(@listing), class: "btn btn-success" %>
-    <% @requested += 1 %>
   <% end %>
 
-</section>
+  </section>
 
 <footer>
   <%if current_user.listings.include?(@listing)%>
     <%= link_to 'Edit', edit_listing_path(@listing) %> |
     <%= link_to 'Delete', @listing, method: :delete, data: { confirm: 'Are you sure?' } %> | 
   <%end%>
-  <% if @requested == 0 %>
-    <%= link_to 'Back', :back %>
-  <% end %>
+
+  <%= link_to 'Back', :back %>
 </footer>
