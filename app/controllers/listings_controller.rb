@@ -23,9 +23,8 @@ class ListingsController < ApplicationController
   # @email is the email belonging to that user
   # since only one call is being made through listing.user, no need to implement eager loading
   def show
-    
     @user = @listing.user
-    @email = @listing.user.email
+    @email = @user.email
   end
 
   # Sends an email to the @listing.user's email and re-renders the page to hide the request button.

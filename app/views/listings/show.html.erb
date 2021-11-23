@@ -19,25 +19,23 @@
   <% if current_user.email == @email %>
     <p>
       <strong>This succulent belongs to you!</strong>
+      <p><%= link_to "View Your Succulents", seller_path(@listing, @seller) %></p> 
     </p>
   <% else %>
     <p>
       <strong>Email the Seller on:</strong>
-      <%= @email %>
+      <%= @email %> 
+      <p><%= link_to "View This User's Succulents", seller_path(@listing, @seller) %></p>
+     
+      <% if @requested.include?(@listing) %>
+        <p>already requested!</p>
+     <% else %>
+        <%= link_to 'request this listing?', request_listing_path(@listing), class: "btn btn-success" %>
+     <% end %>
     </p>
   <% end %>
 
-  <% if @listing.user.listings.all.length > 1 && @listing.user != current_user %>
-   <p><%= link_to "View This Seller's Succulents", seller_path(@listing, @seller) %></p> 
-  <% else %>
-  <%= link_to "View Your Succulents", seller_path(@listing, @seller) %>
-  <% end %>
-
-  <% if @requested.include?@listing %>
-    <p>already requested!</p>
-  <% else %>
-    <%= link_to 'request this listing?', request_listing_path(@listing), class: "btn btn-success" %>
-  <% end %>
+  
 
   </section>
 

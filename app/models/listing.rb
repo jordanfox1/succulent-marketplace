@@ -1,11 +1,11 @@
 class Listing < ApplicationRecord
+    belongs_to :user
     has_many :listing_categories, dependent: :destroy
     has_many :categories, through: :listing_categories
-    
     has_one_attached :plant_picture
 
-    belongs_to :user
-    has_many :requesters, through: :requested_listings, source: :user
+    has_many :requested_listings
+    has_many :requesters, through: :requested_listings, source: :user, dependent: :destroy
 
     # Validates the price, if the user enters an integer, it converts it to a decimal to accuratly display price
     validates :price, presence: true, numericality: {only_decimal: true}
